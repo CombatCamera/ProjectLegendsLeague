@@ -1,0 +1,2 @@
+LL-BR-001 — Player Version
+LegendsLeague v1.0 represents each player using a statistically determined peak-performance period. Specific seasons, career-average profiles, ballpark selection, and other contextual simulation modes are outside the v1.0 portfolio scope.
