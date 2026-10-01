@@ -1,3 +1,36 @@
+"""
+Project LegendsLeague
+Lahman Data Validation
+
+Purpose:
+    Validate the historical Lahman data required by the LegendsLeague
+    normalization and simulation pipelines.
+
+Responsibilities:
+    - Confirm required historical statistics are available.
+    - Validate league-level data completeness for selected seasons.
+    - Compare player-level and team-level aggregates where appropriate.
+    - Detect missing or inconsistent statistics before normalization.
+    - Protect downstream calculations from invalid historical inputs.
+
+Current Validation Scope:
+    - 1911 American League batting data
+    - 1973 American League pitching data
+    - Ty Cobb 1911 supporting statistics
+    - Nolan Ryan 1973 supporting statistics
+
+Data Source:
+    SABR Lahman Baseball Database
+
+Validation Principle:
+    Historical inputs must be verified before they are used to construct
+    era baselines, player tendencies, or normalized matchup probabilities.
+"""
+
+# =====================================================
+# FUNCTIONS
+# =====================================================
+
 def validate_1911_al_hbp_availability(batting_data):
     al_1911_batting = batting_data[
         (batting_data["lgID"] == "AL")
@@ -41,8 +74,8 @@ def validate_1911_al_hr_aggregation(batting_data, teams_data):
         print("FAIL: Player and team HR totals do not match.")
 
     print("\n--------------------------------\n")
-    
-    
+
+
 def validate_1911_al_sh_availability(batting_data):
     al_1911_batting = batting_data[
         (batting_data["lgID"] == "AL")
@@ -58,5 +91,24 @@ def validate_1911_al_sh_availability(batting_data):
         print("PASS: 1911 AL individual SH data is complete.")
     else:
         print("FAIL: 1911 AL individual SH data is incomplete.")
+
+    print("\n--------------------------------\n")
+
+
+def validate_1973_al_bfp_availability(pitching_data):
+    al_1973_pitching = pitching_data[
+        (pitching_data["lgID"] == "AL")
+        & (pitching_data["yearID"] == 1973)
+    ]
+
+    missing_bfp_count = al_1973_pitching["BFP"].isna().sum()
+
+    print("\n1973 AL individual BFP availability:")
+    print(f"Missing BFP values: {missing_bfp_count}")
+
+    if missing_bfp_count == 0:
+        print("PASS: 1973 AL individual BFP data is complete.")
+    else:
+        print("FAIL: 1973 AL individual BFP data is incomplete.")
 
     print("\n--------------------------------\n")

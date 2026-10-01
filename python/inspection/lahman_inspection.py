@@ -1,3 +1,30 @@
+"""
+Project LegendsLeague
+Lahman Data Inspection
+
+Purpose:
+    Provide targeted inspection views of Lahman historical data used by
+    LegendsLeague development and validation.
+
+Responsibilities:
+    - Inspect Ty Cobb batting records.
+    - Inspect Nolan Ryan pitching records.
+    - Inspect the 1911 American League team environment.
+    - Inspect Ty Cobb's 1911 plate appearance components.
+    - Support development, debugging, and historical data verification.
+
+Design Principle:
+    Inspection functions are intended for human review only and should remain
+    separate from production calculation and simulation pipelines.
+
+Data Source:
+    SABR Lahman Baseball Database
+"""
+
+# ============================================
+# FUNCTIONS
+# ============================================
+
 def inspect_ty_cobb_batting(batting_data):
     cobb_data = batting_data[
         batting_data["playerID"] == "cobbty01"
@@ -49,7 +76,7 @@ def inspect_nolan_ryan_pitching(pitching_data):
     )
 
     print("\n--------------------------------\n")
-    
+
 
 def inspect_1911_al_environment(teams_data):
     al_1911_teams = teams_data[
@@ -77,15 +104,15 @@ def inspect_1911_al_environment(teams_data):
     )
 
     print("\n--------------------------------\n")
-    
+
 
 def inspect_cobb_1911_plate_appearance(batting_data):
-    
+
     ty_cobb_1911_batting = batting_data[
         (batting_data["playerID"] == "cobbty01")
         & (batting_data["yearID"] == 1911)
     ]
-    
+
     print("\nTy Cobb 1911 Plate Appearance Validation:")
     print(
         ty_cobb_1911_batting[

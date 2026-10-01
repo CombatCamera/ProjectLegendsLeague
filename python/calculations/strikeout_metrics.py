@@ -1,6 +1,22 @@
+"""
+Project LegendsLeague
+Strikeout Metrics
 
-def calculate_strikeout_tendency(strikeouts, plate_appearances):
+Purpose:
+    Calculate strikeout tendency from total strikeouts and total encounters.
 
-    if plate_appearances == 0:
+Responsibilities:
+    - Convert strikeout totals into a probability-style strikeout tendency.
+    - Safely handle zero-encounter inputs.
+    - Provide a reusable strikeout metric for league, player, and matchup calculations.
+"""
+
+# ==========================================================
+# FUNCTION
+# ==========================================================
+
+def calculate_strikeout_tendency(strikeouts, encounters):
+
+    if encounters == 0:
         return 0.0
-    return (strikeouts / plate_appearances)
+    return (strikeouts / encounters)
